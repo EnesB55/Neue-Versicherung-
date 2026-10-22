@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prüfungstrainer: Versicherungen (45 Fragen Komplettkatalog)</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --success: #16a34a;
+      --success-bg: #dcfce7;
+      --danger: #dc2626;
+      --danger-bg: #fee2e2;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      padding: 16px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: var(--card);
+      padding: 16px 20px;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .header-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    select, .btn-small {
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      font-size: 0.875rem;
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .btn-small:hover {
+      background: #e2e8f0;
+    }
+
+    .stats-bar {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .quiz-card {
+      background: var(--card);
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      border: 1px solid var(--border);
+    }
+
+    .badge-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: var(--primary);
+    }
+
+    .badge.multi {
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    .badge.open {
+      background: #f3e8ff;
+      color: #7e22ce;
+    }
+
+    .question-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 6px;
+    }
+
+    .question-text {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      white-space: pre-line;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      width: 100%;
+      text-align: left;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      background: var(--card);
+      font-size: 0.98rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: #94a3b8;
+      background: #f8fafc;
+    }
+
+    .option-btn.selected {
+      border-color: var(--primary);
+      background: #eff6ff;
+    }
+
+    .option-btn.correct {
+      border-color: var(--success);
+      background: var(--success-bg);
+      color: #065f46;
+      font-weight: 600;
+    }
+
+    .option-btn.wrong {
+      border-color: var(--danger);
+      background: var(--danger-bg);
+      color: #991b1b;
+    }
+
+    .option-indicator {
+      min-width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    .option-btn.selected .option-indicator {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: white;
+    }
+
+    .option-btn.correct .option-indicator {
+      border-color: var(--success);
+      background: var(--success);
+      color: white;
+    }
+
+    .option-btn.wrong .option-indicator {
+      border-color: var(--danger);
+      background: var(--danger);
+      color: white;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 95px;
+      padding: 12px;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      font-family: inherit;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+      resize: vertical;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .feedback-box {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .feedback-box.correct {
+      display: block;
+      background: var(--success-bg);
+      border: 1px solid #86efac;
+      color: #065f46;
+    }
+
+    .feedback-box.wrong {
+      display: block;
+      background: var(--danger-bg);
+      border: 1px solid #fca5a5;
+      color: #991b1b;
+    }
+
+    .feedback-box.neutral {
+      display: block;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: var(--text);
+    }
+
+    .feedback-title {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .action-row {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .self-eval-btns {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .summary-card {
+      text-align: center;
+      padding: 32px 20px;
+    }
+
+    .score-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: #eff6ff;
+      border: 4px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 0 auto 20px;
+    }
+
+    .summary-stats {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin: 20px 0 28px;
+    }
+
+    .stat-item {
+      font-size: 0.95rem;
+    }
+
+    .stat-item strong {
+      display: block;
+      font-size: 1.4rem;
+    }
+
+    .print-info {
+      margin-top: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="header-top">
+      <h1>🛡️ Versicherungsprüfung – Alle 45 Fragen (1:1 Original)</h1>
+      <div class="controls">
+        <select id="filterSelect" onchange="applyFilter()">
+          <option value="all">Alle 45 Fragen (Komplett)</option>
+          <option value="mc">Nur Auswahlfragen (29)</option>
+          <option value="open">Nur Offene Fragen (16)</option>
+          <option value="1. Hausratversicherung">1. Hausratversicherung (9)</option>
+          <option value="2. Privathaftpflichtversicherung (PHV)">2. Privathaftpflicht (PHV) (3)</option>
+          <option value="3. Kraftfahrtversicherung (Kfz)">3. Kraftfahrtversicherung (Kfz) (3)</option>
+          <option value="4. Private (PUV) & Gesetzliche Unfallversicherung (GUV)">4. Unfallversicherung (PUV & GUV) (4)</option>
+          <option value="5. Gesetzliche Rentenversicherung (GRV)">5. Gesetzliche Rente (GRV) (6)</option>
+          <option value="6. Private Altersvorsorge & 3-Schichten-Modell">6. Private Vorsorge & 3-Schichten (14)</option>
+          <option value="7. Betriebliche Altersversorgung (bAV)">7. Betriebliche Altersversorgung (bAV) (2)</option>
+          <option value="8. Risikolebens- & Berufsunfähigkeitsversicherung (BU)">8. Risikoleben & BU (3)</option>
+          <option value="9. Private Krankenversicherung (PKV)">9. Private Krankenversicherung (PKV) (1)</option>
+        </select>
+        <button class="btn-small" onclick="shuffleQuiz()">🔀 Fragen mischen</button>
+      </div>
+    </div>
+    <div class="stats-bar">
+      <span id="questionCounter">Frage 1 von 45</span>
+      <span id="scoreCounter">Punkte: 0</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressBar"></div>
+    </div>
+  </header>
+
+  <main id="quizContainer" class="quiz-card"></main>
+
+  <footer class="print-info">
+    <span><strong>Druck- und PDF-Export:</strong> Im Webbrowser auf <em>Drucken</em> gehen (<code>Strg + P</code> unter Windows bzw. <code>Cmd + P</code> auf dem Mac) und als Ziel <em>„Als PDF speichern“</em> auswählen.</span>
+    <button class="btn-small" onclick="window.print()">🖨️ Drucken / Als PDF speichern</button>
+  </footer>
+</div>
+
+<script>
+const allQuestions = [
+  // ================= 1. HAUSRATVERSICHERUNG =================
+  {
+    id: 1,
+    category: "1. Hausratversicherung",
+    title: "Frage 1: Unterversicherungsverzicht (100 m² Dachgeschosswohnung)",
+    type: "open",
+    question: "Die neue 3-Zimmer-Wohnung im Dachgeschoss hat 100 m². Wie hoch sollte die Versicherungssumme sein und was bedeutet der Begriff Unterversicherungsverzicht?",
+    modelAnswer: "• Versicherungssumme: Bei der branchenüblichen Pauschale von 650 € bis 750 € pro m² sollte die Versicherungssumme zwischen 65.000 € und 75.000 € liegen (bei 750 €/m² exakt 75.000 €).\n• Bedeutung: Bei Vereinbarung des Unterversicherungsverzichts verzichtet der Versicherer im Teilschadenfall darauf zu prüfen, ob der tatsächliche Gesamtwert des Hausrats höher ist als die Versicherungssumme. Die Entschädigung wird ohne Abzug wegen Unterversicherung bis zur vereinbarten Summe ausgezahlt.",
+    explanation: "Wortgetreue Antwort / Lösung aus Kapitel 1 (Frage 1)."
+  },
+  {
+    id: 2,
+    category: "1. Hausratversicherung",
+    title: "Frage 2: Unterversicherungsverzicht (65 m² Wohnung)",
+    type: "open",
+    question: "Herr Meyer zieht in eine 65 m² große Wohnung. Welche Versicherungssumme wählen Sie für den Unterversicherungsverzicht?",
+    modelAnswer: "Berechnung & Richtige Antwort: 48.750 €",
+    explanation: "65 m² × 750 €/m² = 48.750 €."
+  },
+  {
+    id: 3,
+    category: "1. Hausratversicherung",
+    title: "Frage 3: Fahrraddiebstahl am Bahnhof",
+    type: "open",
+    question: "Das Fahrrad wird am Bahnhof geklaut. Ist das versichert, ja oder nein?",
+    modelAnswer: "Antwort: Ja, unter zwei Voraussetzungen.",
+    explanation: "1. Die Fahrradklausel muss in der Hausratpolice eingeschlossen sein (außerhalb der Wagnisadresse greift die Grunddeckung nicht).\n2. Das Fahrrad muss mit einem eigenständigen Schloss an einen festen Gegenstand (z. B. Laterne, Fahrradständer) angeschlossen gewesen sein (reines In-sich-Abschließen reicht nicht aus)."
+  },
+  {
+    id: 4,
+    category: "1. Hausratversicherung",
+    title: "Frage 4: Ausschlüsse / Nicht versicherte Gefahren",
+    type: "single",
+    question: "Welcher Schaden ist durch die standardmäßige Hausratversicherung nicht abgedeckt?",
+    options: [
+      "Einbruchdiebstahl und Vandalismus nach einem Einbruch",
+      "Leitungswasserschäden durch Rohrbruch",
+      "Brand und Blitzschlag",
+      "Schäden durch Überschwemmung infolge von Starkregen",
+      "Schäden durch einfachen Diebstahl außerhalb des versicherten Wohnraumes"
+    ],
+    correct: [4],
+    explanation: "Richtige Antwort: Schäden durch einfachen Diebstahl außerhalb des versicherten Wohnraumes.\nErklärung: Einfacher Diebstahl (z. B. unbemerktes Entwenden aus der Tasche auf Festen) ist ausgeschlossen. Ein versicherter Diebstahl außerhalb der Wohnung setzt einen Raub (Androhung/Anwendung von Gewalt) oder eine vereinbarte Zusatzklausel voraus."
+  },
+  {
+    id: 5,
+    category: "1. Hausratversicherung",
+    title: "Frage 5: Einflussfaktoren auf den Beitrag",
+    type: "single",
+    question: "Einfluss auf den Beitrag zu einer Hausratversicherung können haben:",
+    options: [
+      "A) Alter, Wohnort, Wert des Hausrates",
+      "B) Geschlecht und Zahlweise",
+      "C) Nationalität und Wohnort"
+    ],
+    correct: [0],
+    explanation: "Richtige Antwort: A (Alter, Wohnort, Wert des Hausrates).\nErklärung: Tarifzonen des Wohnorts, Wohnungsgröße/Hausratwert und Alterstarife bestimmen den Beitrag; Nationalität oder Geschlecht dürfen keine Rolle spielen."
+  },
+  {
+    id: 6,
+    category: "1. Hausratversicherung",
+    title: "Frage 6: Standardgefahren",
+    type: "open",
+    question: "Welche Gefahren sind in der Grunddeckung einer Hausratversicherung versichert?",
+    modelAnswer: "Antwort: Feuer, Einbruchdiebstahl, Leitungswasser, Sturm und Hagel",
+    explanation: "Dies sind die vier klassischen Grundgefahren. Glasbruch oder Überspannungsschäden sind gesonderte Bausteine."
+  },
+  {
+    id: 7,
+    category: "1. Hausratversicherung",
+    title: "Frage 7: Entschädigungswert",
+    type: "single",
+    question: "Welcher Wert wird im Falle eines Hausratschadens ersetzt?",
+    options: [
+      "Restwert",
+      "Zeitwert",
+      "Gleitender Neuwert",
+      "Neuwert"
+    ],
+    correct: [3],
+    explanation: "Richtige Antwort: Neuwert.\nErklärung: Die Hausratversicherung ist eine Neuwertversicherung (Wiederbeschaffungspreis von Sachen gleicher Art und Güte im Neuzustand)."
+  },
+  {
+    id: 8,
+    category: "1. Hausratversicherung",
+    title: "Frage 8: Grobe Fahrlässigkeit",
+    type: "single",
+    question: "Was bedeutet das Leistungsmerkmal grobe Fahrlässigkeit in der Hausratversicherung?",
+    options: [
+      "1. Sofern der Schaden grob fahrlässig herbeigeführt wurde, kann der Kunde den Schaden nicht melden.",
+      "2. Kunden verursachen grundsätzlich keine Schäden, die grob fahrlässig herbeigeführt wurden.",
+      "3. Einen Tarif zu wählen, in dem grobe Fahrlässigkeit bis zur Höhe der Versicherungssumme mitversichert ist, ist empfehlenswert.",
+      "4. Grobe Fahrlässigkeit ist in jedem Hausrattarif uneingeschränkt mitversichert, da es gesetzlich vorgeschrieben ist."
+    ],
+    correct: [2],
+    explanation: "Richtige Antwort: 3.\nErklärung: Ein Verzicht auf den Einwand der groben Fahrlässigkeit bis zur vollen Versicherungssumme schützt vor Leistungskürzungen des Versicherers."
+  },
+  {
+    id: 9,
+    category: "1. Hausratversicherung",
+    title: "Frage 9: Einzug der Lebensgefährtin",
+    type: "open",
+    question: "Herr Meyer erklärt, dass demnächst seine Freundin bei ihm einzieht. Ist das wichtig für die Hausratversicherung?",
+    modelAnswer: "Antwort: Nein",
+    explanation: "Für die Hausratversicherung sind primär die Wagnisadresse und die Wohnfläche maßgeblich."
+  },
+
+  // ================= 2. PRIVATHAFTPFLICHTVERSICHERUNG (PHV) =================
+  {
+    id: 10,
+    category: "2. Privathaftpflichtversicherung (PHV)",
+    title: "Frage 10: Entschädigungswert bei Sachschäden",
+    type: "single",
+    question: "Welchen Wert erhält ein Geschädigter aus der Privathaftpflichtversicherung des Schädigers?",
+    options: [
+      "Zeitwert",
+      "Neuwert",
+      "Gleitender Neuwert"
+    ],
+    correct: [0],
+    explanation: "Richtige Antwort: Zeitwert.\nErklärung: Das gesetzliche Schadenersatzrecht (§ 249 BGB) sieht vor, dass der Geschädigte so gestellt wird wie vor dem Schaden – ersetzt wird daher der Zeitwert unter Berücksichtigung von Alter und Abnutzung."
+  },
+  {
+    id: 11,
+    category: "2. Privathaftpflichtversicherung (PHV)",
+    title: "Frage 11: Schadenfall Herr Paul (Umgestoßener Schrank mit Porzellan)",
+    type: "single",
+    question: "Herr Paul stößt bei Bekannten gegen einen Schrank, welcher umfällt; das Porzellan wird zerstört. Welchen Wert wird Herr Pauls Haftpflichtversicherer ersetzen?",
+    options: [
+      "Den Neuwert",
+      "Den Zeitwert",
+      "Den Gemeinwert",
+      "Den Wiederbeschaffungswert am Tag des Schadens"
+    ],
+    correct: [1],
+    explanation: "Richtige Antwort: Den Zeitwert.\nErklärung: Die PHV reguliert Haftpflichtschäden Dritter immer zum Zeitwert."
+  },
+  {
+    id: 12,
+    category: "2. Privathaftpflichtversicherung (PHV)",
+    title: "Frage 12: Gesetzliche Einordnung der PHV",
+    type: "single",
+    question: "Welche der folgenden Aussagen zur Privathaftpflichtversicherung ist nicht korrekt?",
+    options: [
+      "1. Die Privathaftpflichtversicherung deckt Schäden, die der Versicherungsnehmer anderen Personen oder deren Eigentum zufügt.",
+      "2. Die Privathaftpflichtversicherung ist in Deutschland gesetzlich vorgeschrieben.",
+      "3. Die Privathaftpflichtversicherung übernimmt auch Schäden, die durch grobe Fahrlässigkeit des Versicherungsnehmers entstanden sind.",
+      "4. Familienmitglieder, die im selben Haushalt leben, sind oft automatisch mitversichert.",
+      "5. Schäden am eigenen Eigentum des Versicherungsnehmers sind in der Regel nicht durch die PHV abgedeckt."
+    ],
+    correct: [1],
+    explanation: "Richtige Antwort: 2 (Die Privathaftpflicht ist NICHT gesetzlich vorgeschrieben, sondern eine freiwillige Versicherung).\nErklärung: Anders als die Kfz-Haftpflicht ist die Privathaftpflicht in Deutschland keine Pflichtversicherung, auch wenn sie zu den wichtigsten Vorsorgepolicen zählt."
+  },
+
+  // ================= 3. KRAFTFAHRTVERSICHERUNG (KFZ) =================
+  {
+    id: 13,
+    category: "3. Kraftfahrtversicherung (Kfz)",
+    title: "Frage 13: Ablauf der Fahrzeugzulassung & eVB-Nummer",
+    type: "open",
+    question: "Wie ist der Werdegang der Auto-Zulassung und was besagt die eVB-Nummer?",
+    modelAnswer: "• Der Kunde beantragt beim Versicherer die elektronische Versicherungsbestätigung (eVB-Nummer) und legt diese bei der Kfz-Zulassungsstelle vor.\n• Die eVB-Nummer weist nach, dass eine vorläufige Deckungszusage in der gesetzlichen Kfz-Haftpflichtversicherung besteht.",
+    explanation: "Wortgetreue Antwort / Erklärung aus Kapitel 3 (Frage 13)."
+  },
+  {
+    id: 14,
+    category: "3. Kraftfahrtversicherung (Kfz)",
+    title: "Frage 14: Pflichtversicherung vs. Schadenübernahme",
+    type: "single",
+    question: "Herr Müller möchte wegen der hohen Prämie auf die Kfz-Haftpflichtversicherung verzichten und Schäden selbst bezahlen. Wie reagieren Sie?",
+    options: [
+      "1. Sie geben ihm zu bedenken, dass die Kosten unkalkulierbar sind.",
+      "2. Sie bieten ihm 5 Jahre Laufzeit mit 10% Rabatt an.",
+      "3/C) Sie verweisen darauf, dass die Kfz-Haftpflichtversicherung eine Pflichtversicherung ist und nicht versicherte Autos zwangsweise stillgelegt werden bzw. gar nicht erst die Zulassung erhalten.",
+      "4. Sie bieten an, einen Schadenfreiheitsrabatt eines anderen Kunden zu vermitteln."
+    ],
+    correct: [2],
+    explanation: "Richtige Antwort: 3 / C.\nErklärung: Nach dem Pflichtversicherungsgesetz (PflVG) ist der Betrieb eines Kraftfahrzeugs im öffentlichen Straßenverkehr ohne Haftpflichtversicherung strafbar und führt zur Verweigerung der Zulassung bzw. Stilllegung."
+  },
+  {
+    id: 15,
+    category: "3. Kraftfahrtversicherung (Kfz)",
+    title: "Frage 15: Versicherungspflicht auf Privatgelände",
+    type: "open",
+    question: "Brauchen Fahrzeuge auf nicht-öffentlichem Privatgelände (z. B. Flugplatz, geschlossener Wald, Firmengelände) eine Kfz-Haftpflichtversicherung oder einen Führerschein?",
+    modelAnswer: "Antwort: Nein",
+    explanation: "Die Pflichtversicherung und die Straßenverkehrsordnung greifen ausschließlich im öffentlichen Verkehrsraum."
+  },
+
+  // ================= 4. PRIVATE (PUV) & GESETZLICHE UNFALLVERSICHERUNG (GUV) =================
+  {
+    id: 16,
+    category: "4. Private (PUV) & Gesetzliche Unfallversicherung (GUV)",
+    title: "Frage 16: Definition der Privaten Unfallversicherung",
+    type: "single",
+    question: "Was versteht man unter einer privaten Unfallversicherung?",
+    options: [
+      "1. Sie deckt nur Unfälle am Arbeitsplatz ab.",
+      "2/B) Sie schützt vor den finanziellen Folgen eines Unfalls, der jederzeit und überall passieren kann.",
+      "3. Sie bietet nur Unterstützung bei Unfällen im Straßenverkehr.",
+      "4. Sie ersetzt nur die Heilbehandlungskosten bei Unfällen."
+    ],
+    correct: [1],
+    explanation: "Richtige Antwort: 2 / B.\nErklärung: Die PUV federt die wirtschaftlichen Folgen einer dauerhaften Invalidität weltweit ab. Reine Heilbehandlungskosten sind Sache der Krankenversicherung."
+  },
+  {
+    id: 17,
+    category: "4. Private (PUV) & Gesetzliche Unfallversicherung (GUV)",
+    title: "Frage 17: Träger der Gesetzlichen Unfallversicherung",
+    type: "single",
+    question: "Wer sind die hauptsächlichen Träger der gesetzlichen Unfallversicherung?",
+    options: [
+      "Landesversicherungsanstalten",
+      "Träger der gesetzlichen Krankenversicherung",
+      "Berufsgenossenschaften und Gemeindeunfallversicherungsverbände (Unfallkassen)",
+      "Staatliche Unfallversicherung"
+    ],
+    correct: [2],
+    explanation: "Richtige Antwort: Berufsgenossenschaften und Gemeindeunfallversicherungsverbände (Unfallkassen).\nErklärung: Berufsgenossenschaften (für die gewerbliche Wirtschaft) und Unfallkassen/Gemeindeunfallverbände (für den öffentlichen Dienst, Schulen, Kitas) sind die gesetzlich zuständigen Träger."
+  },
+  {
+    id: 18,
+    category: "4. Private (PUV) & Gesetzliche Unfallversicherung (GUV)",
+    title: "Frage 18: Deckung beim Motorradfahren",
+    type: "open",
+    question: "Besteht Versicherungsschutz in der privaten Unfallversicherung bei Motorradfahrten?\n• Fall A: Motorradunfall bei Wochenendausfahrt mit Freunden im Straßenverkehr mit dauerhafter Invalidität.\n• Fall B: Regelmäßige Wettrennen auf der Rennstrecke zur Erzielung von Höchstgeschwindigkeiten.",
+    modelAnswer: "• Fall A: Versichert (Ja) – Freizeitfahrten im Straßenverkehr sind voll abgedeckt.\n• Fall B: Nicht versichert (Nein) – Fahrtveranstaltungen und Rennen zur Erzielung von Höchstgeschwindigkeiten sind standardmäßig in den Unfallbedingungen ausgeschlossen.",
+    explanation: "Wortgetreue Antwort & Erklärung aus Kapitel 4 (Frage 18)."
+  },
+  {
+    id: 19,
+    category: "4. Private (PUV) & Gesetzliche Unfallversicherung (GUV)",
+    title: "Frage 19: Geltungsbereich im Ausland (Australien)",
+    type: "single",
+    question: "Wo besteht Versicherungsschutz in der privaten Unfallversicherung? (Kunde reist für 5 Monate nach Australien)",
+    options: [
+      "In Europa ohne zeitliche Begrenzung",
+      "Weltweit ohne zeitliche Begrenzung",
+      "Weltweit für einen Monat",
+      "Weltweit für ein Jahr"
+    ],
+    correct: [1],
+    explanation: "Richtige Antwort: Weltweit ohne zeitliche Begrenzung.\nErklärung: Der Schutz der PUV gilt 24 Stunden am Tag rund um den Globus."
+  },
+
+  // ================= 5. GESETZLICHE RENTENVERSICHERUNG (GRV) =================
+  {
+    id: 20,
+    category: "5. Gesetzliche Rentenversicherung (GRV)",
+    title: "Frage 20: Gesetzlich vorgesehene Rentenarten",
+    type: "single",
+    question: "Welche Rente ist im Rahmen der gesetzlichen Rentenversicherung gesetzlich vorgesehen?",
+    options: [
+      "Rente wegen Alters",
+      "Rente wegen Invalidität",
+      "Rente wegen Krankheit",
+      "Rente wegen Kindererziehung",
+      "Rente wegen Arbeitslosigkeit"
+    ],
+    correct: [0],
+    explanation: "Richtige Antwort: Rente wegen Alters.\nErklärung: Gesetzlich verankert sind Altersrenten, Renten wegen Erwerbsminderung und Hinterbliebenenrenten. Begriffe wie „Invaliditätsrente“ oder „Krankheitsrente“ existieren im SGB VI nicht."
+  },
+  {
+    id: 21,
+    category: "5. Gesetzliche Rentenversicherung (GRV)",
+    title: "Frage 21: Einflussfaktoren auf die Rentenhöhe",
+    type: "multi",
+    question: "Welche Faktoren beeinflussen die Höhe der gesetzlichen Rente in Deutschland? (Mehrfachnennung möglich)",
+    options: [
+      "1. Höheres Einkommen",
+      "2. Eintrittsalter und somit die Anzahl meiner Beiträge",
+      "3. Inflation",
+      "4. Die Beitragsjahre (Anzahl der Einzahlungsjahre)",
+      "5. Renteneintrittsalter (mit oder ohne Abschläge)"
+    ],
+    correct: [0, 1, 2, 3, 4],
+    explanation: "Richtige Antwort: Alle genannten Antworten (1, 2, 3, 4 und 5).\nErklärung: Einkommen und Beitragsjahre bestimmen die Entgeltpunkte, das Renteneintrittsalter bestimmt den Zugangsfaktor (Abschläge), und die Rentenanpassungen reagieren auf die wirtschaftliche Entwicklung/Inflation."
+  },
+  {
+    id: 22,
+    category: "5. Gesetzliche Rentenversicherung (GRV)",
+    title: "Frage 22: Generationenvertrag & Umlageverfahren",
+    type: "open",
+    question: "Welche Aussage beschreibt den Generationenvertrag und das Umlageverfahren zutreffend?",
+    modelAnswer: "Antwort: Eingezahlte Beiträge dienen sofort der Finanzierung der laufenden Renten der aktuellen Rentnergeneration.",
+    explanation: "Im Umlageverfahren („Geld rein, Geld raus“) wird kein individuelles Deckungskapital angespart."
+  },
+  {
+    id: 23,
+    category: "5. Gesetzliche Rentenversicherung (GRV)",
+    title: "Frage 23: Frühestmöglicher Renteneintritt (Fall Klara & Frau Müller, 40 Jahre)",
+    type: "single",
+    question: "Eine Kundin hat mit 60 Jahren bereits die Wartezeit von 35 Jahren erfüllt. Kann sie mit 60 Jahren in Altersrente gehen?",
+    options: [
+      "1. Ja, wenn sie Rentenabschläge in Kauf nimmt.",
+      "2. Nein, frühestens mit 60, wenn sie Rentenabschläge in Kauf nimmt.",
+      "3. Nein, frühestens mit 63, wenn sie Rentenabschläge in Kauf nimmt.",
+      "4. Frühestens mit 65, aber nur wenn sie gesund bleibt."
+    ],
+    correct: [2],
+    explanation: "Richtige Antwort: 3 – Nein, frühestens mit 63 Jahren (unter Inkaufnahme von Abschlägen).\nErklärung: Die Altersrente für langjährig Versicherte (35 Pflichtbeitragsjahre) kann frühestens mit Vollendung des 63. Lebensjahres bezogen werden."
+  },
+  {
+    id: 24,
+    category: "5. Gesetzliche Rentenversicherung (GRV)",
+    title: "Frage 24: Wartezeit für abschlagsfreie Rente mit 65 Jahren",
+    type: "single",
+    question: "Um mit 65 Jahren die gesetzliche Rente abschlagsfrei beziehen zu können, muss welche Wartezeit erfüllt sein?",
+    options: [
+      "60 Monate",
+      "35 Jahre",
+      "40 Jahre",
+      "45 Jahre"
+    ],
+    correct: [3],
+    explanation: "Richtige Antwort: 45 Jahre.\nErklärung: Die abschlagsfreie Altersrente für besonders langjährig Versicherte setzt mindestens 45 Beitragsjahre voraus."
+  },
+  {
+    id: 25,
+    category: "5. Gesetzliche Rentenversicherung (GRV)",
+    title: "Frage 25: Renteninformation - Brutto vs. Netto",
+    type: "single",
+    question: "Welche Aussage zur Rentenhöhe in der Renteninformation ist zutreffend?",
+    options: [
+      "1. Es handelt sich um Bruttobeträge mit pauschal 25% Abzug.",
+      "2/B) Bei der Rentenhöhe handelt es sich um Bruttobeträge. Auf diesen Betrag sind noch Krankenversicherungs- und Pflegebeiträge zu entrichten. Je nach Höhe der gesamten Einkünfte muss gegebenenfalls auch noch Einkommensteuer gezahlt werden.",
+      "3. Die Versorgungssituation weist keinen Versorgungsbedarf auf.",
+      "4. Die Rente ist vom Einkommen der letzten 5 Jahre abhängig."
+    ],
+    correct: [1],
+    explanation: "Richtige Antwort: 2 / B.\nErklärung: Ausgewiesen werden Bruttowerte vor Abzug von Kranken-/Pflegeversicherungsbeiträgen und individueller Steuer."
+  },
+
+  // ================= 6. PRIVATE ALTERSVORSORGE & 3-SCHICHTEN-MODELL =================
+  {
+    id: 26,
+    category: "6. Private Altersvorsorge & 3-Schichten-Modell",
+    title: "Frage 26: Das 3-Schichten-Modell (Zuordnung)",
+    type: "open",
+    question: "Ordnen Sie die Produkte den 3 Schichten zu:",
+    modelAnswer: "• Schicht 1 (Basisversorgung): Gesetzliche Rentenversicherung, Basisrente (Rürup), berufsständische Versorgungswerke\n• Schicht 2 (Zusatzversorgung): Betriebliche Altersversorgung (bAV), Riester-Rente\n• Schicht 3 (Kapitalanlage / Private Vorsorge): Private Rentenversicherung, Kapitallebensversicherung",
+    explanation: "Wortgetreue Zuordnung aus Kapitel 6 (Frage 26)."
+  },
+  {
+    id: 27,
+    category: "6. Private Altersvorsorge & 3-Schichten-Modell",
+    title: "Frage 27: Merkmale der 3. Schicht",
+    type: "single",
+    question: "Was trifft nicht auf Produkte der dritten Schicht zu?",
+    options: [
+      "A) Der Ertragsanteil lebenslanger privater Renten liegt mit 65 Jahren bei 18%.",
+      "B) Die Beiträge werden steuerlich gefördert.",
+      "C) Die Leistung ist frei vererbbar.",
+      "D) Der Leistungsbeginn ist jederzeit möglich."
+    ],
+    correct: [1],
+    explanation: "Richtige Antwort: B – Die Beiträge werden steuerlich gefördert (trifft NICHT zu).\nErklärung: Beiträge in die 3. Schicht werden aus dem versteuerten Nettoeinkommen gezahlt und sind steuerlich in der Ansparphase nicht abzugsfähig."
+  },
+  {
+    id: 28,
+    category: "6. Private Altersvorsorge & 3-Schichten-Modell",
+    title: "Frage 28: 12/62-Regel (Halbeinkünfteverfahren)",
+    type: "multi",
+    question: "Was bedeutet 12/62 und bei welchem Produkt findet diese Regelung Anwendung? (Mehrfachnennung möglich)",
+    options: [
+      "A) Für die betriebliche Rentenversicherung",
+      "B) Für die private Rentenversicherung",
+      "C) Es ist ein Anreiz, nach 12 Jahren zu kündigen",
+      "D) Es betrifft die steuerliche Behandlung der Kapitalabfindung im Rentenalter"
+    ],
+    correct: [1, 3],
+    explanation: "Richtige Antwort: B und D.\nErklärung: Bei Kapitalauszahlung einer privaten Rentenversicherung nach mindestens 12 Jahren Vertragslaufzeit und Vollendung des 62. Lebensjahres wird der Unterschiedsbetrag (Gewinn) nur zur Hälfte mit dem persönlichen Steuersatz versteuert."
+  },
+  {
+    id: 29,
+    category: "6. Private Altersvorsorge & 3-Schichten-Modell",
+    title: "Frage 29: Ertragsanteilbesteuerung",
+    type: "open",
+    question: "Was versteht man unter der Ertragsanteilbesteuerung und wo greift sie?",
+    modelAnswer: "• Anwendung: Bei der lebenslangen, monatlichen Rentenauszahlung aus einer privaten Rentenversicherung (Schicht 3).\n• Funktionsweise: Nur ein fester prozentualer Ertragsanteil (z. B. 18% bei Rentenbeginn mit 65 Jahren, 17% bei Beginn mit 67 Jahren) unterliegt der Einkommensteuer zum persönlichen Steuersatz.",
+    explanation: "Wortgetreue Antwort / Erklärung aus Kapitel 6 (Frage 29)."
+  },
+  {
+    id: 30,
+    category: "6. Private Altersvorsorge & 3-Schichten-Modell",
+    title: "Frage 30: Aufschubzeit",
+    type: "single",
+    question: "Welcher Zeitraum wird bei einer privaten Rentenversicherung als Aufschubzeit bezeichnet?",
+    options: [
+      "1. Zeitraum von Beginn der Rentenversicherung bis zur Rentenzahlung",
+      "2. Zeitraum zwischen Antragsdatum und erster Beitragszahlung",
+      "3. Bedenkzeit nach Abgabe des Angebots",
+      "4. Zeitraum bei eventueller Arbeitslosigkeit"
+    ],
+    correct: [0],
+    explanation: "Richtige Antwort: 1 (Vom Beginn der Rentenversicherung bis zur Rentenzahlung).\nErklärung: Es handelt sich um die Anspar- bzw. Beitragszahlungsphase vor dem Renteneintritt."
+  },
+  {
+    id: 31,
+    category: "6. Private Altersvorsorge & 3-Schichten-Modell",
+    title: "Frage 31: Unisex-Tarife",
+    type: "open",
+    question: "Welche Aussage zu Beiträgen in der privaten Rentenversicherung ist richtig?",
+    modelAnswer: "Antwort: Der Beitrag ist bei Frauen und Männern gleich.",
+    explanation: "Aufgrund europäischer Vorgaben gelten geschlechtsunabhängige Unisex-Tarife."
+  },
+  {
+    id: 32,
+    category: "6. Private Altersvorsorge & 3-Schichten-Modell",
+    title: "Frage 32: Beitragsfaktoren der privaten Rente",
+    type: "single",
+    question: "Welcher Faktor hat Einfluss auf den Beitrag zur privaten Rentenversicherung?",
+    options: [
+      "1) Alter",
+      "2) Geschlecht",
+      "3) Nationalität",
+      "4) Wohnort"
+    ],
+    correct: [0],
+    explanation: "Richtige Antwort: 1 (Alter des Kunden bei Abschluss).\nErklärung: Das Eintrittsalter bestimmt die Dauer der Ansparphase und die Kalkulation."
+  },
+  {
+    id: 33,
+    category: "6. Private Altersvorsorge & 3-Schichten-Modell",
+    title: "Frage 33: Auszahlungszeitpunkt & Zweck",
+    type: "open",
+    question: "Wann wird die Leistung aus einer privaten Rentenversicherung fällig?",
+    modelAnswer: "Antwort: Bei Ablauf der vertraglich vereinbarten Laufzeit oder bei Tod vor Ablauf.",
+    explanation: "Auszahlung zum vereinbarten Rentenbeginn (als Rente oder Kapital) oder als Todesfallleistung an Hinterbliebene bei Tod während der Aufschubzeit."
+  },
+  {
+    id: 34,
+    category: "6. Private Altersvorsorge & 3-Schichten-Modell",
+    title: "Frage 34: Verfügung über das Guthaben",
+    type: "single",
+    question: "Wann kann eine Kundin während der Ansparphase Geld aus einer ungeförderten privaten Rentenversicherung entnehmen?",
+    options: [
+      "1. Nur zum Rentenbeginn (frühestens mit 67)",
+      "2. Sie kann grundsätzlich immer über den Rückkaufswert verfügen",
+      "3. Sie kann jederzeit verfügen, dafür ist der Vertrag gedacht..."
+    ],
+    correct: [1],
+    explanation: "Richtige Antwort: 2 (Sie kann grundsätzlich über den Rückkaufswert verfügen).\nErklärung: Verträge der Schicht 3 sind flexibel kündbar bzw. erlauben Teilauszahlungen aus dem vorhandenen Rückkaufswert."
+  },
+  {
+    id: 35,
+    category: "6. Private Altersvorsorge & 3-Schichten-Modell",
+    title: "Frage 35: Beratung Jan Schmidt (23 Jahre) - Langlebigkeitsrisiko",
+    type: "single",
+    question: "Jan Schmidt (23 Jahre) informiert sich über den Vermögensaufbau fürs Alter. Welche Aussage trifft zu?",
+    options: [
+      "1. Eine Rentenversicherung sichert das Langlebigkeitsrisiko ab und die Erträge sind nur zur Hälfte zu versteuern, wenn er das Kapital wählt und die 12/62-Regel zutrifft.",
+      "2. Rentenversicherungen sind unflexibel und bieten keine Rendite.",
+      "3. Ein Wertpapierdepot ist völlig ausreichend.",
+      "4. Es wird ausschließlich eine Immobilie empfohlen."
+    ],
+    correct: [0],
+    explanation: "Richtige Antwort: 1.\nErklärung: Nur eine Rentenversicherung garantiert eine lebenslange Rente zur Absicherung des Langlebigkeitsrisikos kombiniert mit dem Steuervorteil nach 12/62."
+  },
+  {
+    id: 36,
+    category: "6. Private Altersvorsorge & 3-Schichten-Modell",
+    title: "Frage 36: Produktwahl für Maxi Müller",
+    type: "single",
+    question: "Maxi Müller möchte eine eigene private Altersvorsorge aufbauen. Welches Produkt eignet sich?",
+    options: [
+      "Bausparvertrag",
+      "Risikolebensversicherung",
+      "Private Rentenversicherung",
+      "Tagesgeldkonto"
+    ],
+    correct: [2],
+    explanation: "Richtige Antwort: Private Rentenversicherung.\nErklärung: Dient zweckgerichtet der lebenslangen Renten- oder Alterskapitalbildung."
+  },
+  {
+    id: 37,
+    category: "6. Private Altersvorsorge & 3-Schichten-Modell",
+    title: "Frage 37: Staatliche Förderung - Kinderzulage Dauer",
+    type: "single",
+    question: "Wie lange besteht Anspruch auf die staatliche Kinderzulage (Riester / Altersvorsorgedepot)?",
+    options: [
+      "1. Bis zur Volljährigkeit",
+      "2. Solange sich das Kind in überwiegend schulischer Ausbildung befindet",
+      "3. Bis zum 29. Lebensjahr",
+      "4. Solange Kindergeld bezogen wird"
+    ],
+    correct: [3],
+    explanation: "Richtige Antwort: 4 (Solange Kindergeld bezogen wird).\nErklärung: Der Anspruch auf die Zulage ist strikt an den steuerlichen Bezug des Kindergeldes gekoppelt."
+  },
+  {
+    id: 38,
+    category: "6. Private Altersvorsorge & 3-Schichten-Modell",
+    title: "Frage 38: Altersvermögensgesetz - Zulagenarten",
+    type: "single",
+    question: "Welche Zulagen sieht das Altersvermögensgesetz prinzipiell vor?",
+    options: [
+      "Eigenheimzulage",
+      "Grundzulage",
+      "Ehegattenzulage",
+      "Sparzulage"
+    ],
+    correct: [1],
+    explanation: "Richtige Antwort: Grundzulage (sowie Kinderzulage).\nErklärung: Eine Ehegatten- oder Sparzulage existiert im AVmG nicht."
+  },
+  {
+    id: 39,
+    category: "6. Private Altersvorsorge & 3-Schichten-Modell",
+    title: "Frage 39: Basisrente (Rürup) - Höchstbeitrag",
+    type: "open",
+    question: "An welche Bezugsgröße ist der steuerliche Höchstbeitrag der Basisrente (1. Schicht) gekoppelt?",
+    modelAnswer: "Antwort: Knappschaftliche Rentenversicherung (Höchstbeitrag zur knappschaftlichen Rentenversicherung West).",
+    explanation: "Der steuerlich abzugsfähige Höchstbetrag für Vorsorgeaufwendungen ist gesetzlich an diesen Maximalbeitrag gekoppelt."
+  },
+
+  // ================= 7. BETRIEBLICHE ALTERSVERSORGUNG (BAV) =================
+  {
+    id: 40,
+    category: "7. Betriebliche Altersversorgung (bAV)",
+    title: "Frage 40: Rechtsanspruch auf Entgeltumwandlung",
+    type: "open",
+    question: "Welches Merkmal trifft auf die betriebliche Altersversorgung zu?",
+    modelAnswer: "Antwort: Arbeitnehmer haben einen gesetzlichen Rechtsanspruch auf Entgeltumwandlung in Höhe von bis zu 4% der Beitragsbemessungsgrenze (BBG).",
+    explanation: "Beiträge bis zu 4% der BBG zur Rentenversicherung West sind sozialversicherungs- und steuerfrei (steuerfrei sogar bis zu 8% der BBG)."
+  },
+  {
+    id: 41,
+    category: "7. Betriebliche Altersversorgung (bAV)",
+    title: "Frage 41: Beratung Paul (50 Jahre, ledig, kinderlos)",
+    type: "multi",
+    question: "Kunde Paul (50, ledig, keine Kinder) möchte für das Alter vorsorgen. Welche Produkte kommen infrage?",
+    options: [
+      "Krankentagegeld",
+      "Private Rentenversicherung",
+      "Betriebliche Altersversorgung",
+      "Risikolebensversicherung"
+    ],
+    correct: [1, 2],
+    explanation: "Richtige Antwort: Private Rentenversicherung und betriebliche Altersversorgung (bAV).\nErklärung: Risikolebensversicherungen (kein Hinterbliebenenbedarf) und Krankentagegeld (Krankheitsschutz) bauen keine Altersvorsorge auf."
+  },
+
+  // ================= 8. RISIKOLEBENS- & BERUFSUNFÄHIGKEITSVERSICHERUNG (BU) =================
+  {
+    id: 42,
+    category: "8. Risikolebens- & Berufsunfähigkeitsversicherung (BU)",
+    title: "Frage 42: Risikolebensversicherung - Abschlussmotiv",
+    type: "single",
+    question: "Welches Motiv führt zum Abschluss einer Risikolebensversicherung?",
+    options: [
+      "Hinterbliebenenvorsorge",
+      "Absicherung der Arbeitskraft",
+      "Absicherung von Sachwerten",
+      "Vermögenswirksame Leistungen"
+    ],
+    correct: [0],
+    explanation: "Richtige Antwort: Hinterbliebenenvorsorge.\nErklärung: Sie zahlt die Versicherungssumme rein im Todesfall der versicherten Person zur Absicherung von Familie oder Darlehen aus."
+  },
+  {
+    id: 43,
+    category: "8. Risikolebens- & Berufsunfähigkeitsversicherung (BU)",
+    title: "Frage 43: Berufsunfähigkeit - Leistungsvoraussetzungen",
+    type: "multi",
+    question: "Welche Voraussetzungen müssen erfüllt sein, damit eine Berufsunfähigkeitsversicherung leistet?",
+    options: [
+      "1. Der Beruf kann zu mindestens 50% nicht mehr ausgeübt werden.",
+      "2. Der Beruf kann für mindestens sechs Monate nicht mehr ausgeübt werden.",
+      "3. Ich muss eine Leistung aus der Erwerbsminderungsrente erhalten.",
+      "4. Es muss ein Unfall eingetreten sein."
+    ],
+    correct: [0, 1],
+    explanation: "Richtige Antwort: 1 und 2.\nErklärung: Es gilt der Grad von mindestens 50% Berufsunfähigkeit und eine Prognosedauer von mindestens 6 Monaten. Die Leistung ist unabhängig von der gesetzlichen Rente und nicht unfallabhängig."
+  },
+  {
+    id: 44,
+    category: "8. Risikolebens- & Berufsunfähigkeitsversicherung (BU)",
+    title: "Frage 44: Berufsunfähigkeit - Verweisungsklausel",
+    type: "open",
+    question: "Was versteht man unter einer Verweisung in der Berufsunfähigkeitsversicherung?\n(Aussage: „Unter einer Verweisungsklausel versteht man, wenn ich zwar meinen aktuellen Beruf nicht mehr ausüben kann, aber einen anderen. Die Verweisung auf einen anderen Beruf spricht der Versicherer aus.“)",
+    modelAnswer: "Antwort: Richtig (Definition)",
+    explanation: "Die Verweisungsklausel berechtigt den Versicherer zu prüfen, ob die versicherte Person eine andere zumutbare Tätigkeit ausüben kann."
+  },
+
+  // ================= 9. PRIVATE KRANKENVERSICHERUNG (PKV) =================
+  {
+    id: 45,
+    category: "9. Private Krankenversicherung (PKV)",
+    title: "Frage 45: Zielgruppe für Krankentagegeld",
+    type: "single",
+    question: "Welche Zielgruppe aus dem gesetzlich pflichtversicherten Bestand beziehen Sie in eine Aktion für Krankentagegeld ein?",
+    options: [
+      "Beamte",
+      "Auszubildende",
+      "Selbstständige/Freiberufler",
+      "Hausfrauen"
+    ],
+    correct: [1],
+    explanation: "Richtige Antwort: Auszubildende (Azubis).\nErklärung: Auszubildende sind pflichtversichert und haben nach 6 Wochen Entgeltfortzahlung eine Versorgungslücke durch das Krankengeld. Beamte erhalten unbegrenzte Dienstbezugsfortzahlung; Selbstständige sind nicht pflichtversichert."
+  }
+];
+
+let currentList = [...allQuestions];
+let currentIndex = 0;
+let score = 0;
+let wrongQuestions = [];
+let selectedIndices = [];
+let answered = false;
+
+function initQuiz() {
+  currentIndex = 0;
+  score = 0;
+  wrongQuestions = [];
+  renderQuestion();
+}
+
+function applyFilter() {
+  const filter = document.getElementById("filterSelect").value;
+  if (filter === "all") {
+    currentList = [...allQuestions];
+  } else if (filter === "mc") {
+    currentList = allQuestions.filter(q => q.type === "single" || q.type === "multi");
+  } else if (filter === "open") {
+    currentList = allQuestions.filter(q => q.type === "open");
+  } else {
+    currentList = allQuestions.filter(q => q.category === filter);
+  }
+  initQuiz();
+}
+
+function shuffleQuiz() {
+  for (let i = currentList.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [currentList[i], currentList[j]] = [currentList[j], currentList[i]];
+  }
+  initQuiz();
+}
+
+function updateHeader() {
+  const total = currentList.length;
+  document.getElementById("questionCounter").textContent = 
+    currentIndex < total ? `Frage ${currentIndex + 1} von ${total}` : `Abgeschlossen (${total} Fragen)`;
+  document.getElementById("scoreCounter").textContent = `Punkte: ${score} / ${total}`;
+  const pct = total > 0 ? Math.round((currentIndex / total) * 100) : 0;
+  document.getElementById("progressBar").style.width = `${pct}%`;
+}
+
+function renderQuestion() {
+  updateHeader();
+  const container = document.getElementById("quizContainer");
+  selectedIndices = [];
+  answered = false;
+
+  if (currentIndex >= currentList.length) {
+    renderSummary();
+    return;
+  }
+
+  const q = currentList[currentIndex];
+  let typeBadge = `<span class="badge">Single-Choice (1 richtige Antwort)</span>`;
+  if (q.type === "multi") {
+    typeBadge = `<span class="badge multi">Mehrfachauswahl (${q.correct.length} richtige Antworten)</span>`;
+  } else if (q.type === "open") {
+    typeBadge = `<span class="badge open">Offene Prüfungsfrage</span>`;
+  }
+
+  let html = `
+    <div class="badge-row">
+      <span class="badge">${q.category}</span>
+      ${typeBadge}
+    </div>
+    <div class="question-title">${q.title}</div>
+    <div class="question-text">${q.question}</div>
+  `;
+
+  if (q.type === "single" || q.type === "multi") {
+    html += `<div class="options-list" id="optionsList">`;
+    q.options.forEach((opt, idx) => {
+      const letter = String.fromCharCode(65 + idx);
+      html += `
+        <button class="option-btn" id="opt-${idx}" onclick="handleOptionClick(${idx})">
+          <span class="option-indicator">${letter}</span>
+          <span>${opt}</span>
+        </button>
+      `;
+    });
+    html += `</div>`;
+
+    html += `
+      <div id="feedbackBox" class="feedback-box"></div>
+      <div class="action-row">
+        ${q.type === "multi" ? `<button class="btn-primary" id="checkBtn" onclick="evaluateMulti()">Antwort prüfen</button>` : `<div></div>`}
+        <button class="btn-primary" id="nextBtn" style="display:none;" onclick="nextQuestion()">Nächste Frage ➔</button>
+      </div>
+    `;
+  } else if (q.type === "open") {
+    html += `
+      <textarea id="openInput" placeholder="Tippe hier optional deine Antwort / Berechnung ein, bevor du die Musterlösung aufdeckst..."></textarea>
+      <div id="feedbackBox" class="feedback-box"></div>
+      <div class="action-row">
+        <button class="btn-primary" id="revealBtn" onclick="revealOpenAnswer()">Musterlösung aufdecken</button>
+      </div>
+    `;
+  }
+
+  container.innerHTML = html;
+}
+
+function handleOptionClick(idx) {
+  if (answered) return;
+  const q = currentList[currentIndex];
+
+  if (q.type === "single") {
+    selectedIndices = [idx];
+    evaluateChoice();
+  } else if (q.type === "multi") {
+    const pos = selectedIndices.indexOf(idx);
+    const btn = document.getElementById(`opt-${idx}`);
+    if (pos === -1) {
+      selectedIndices.push(idx);
+      btn.classList.add("selected");
+    } else {
+      selectedIndices.splice(pos, 1);
+      btn.classList.remove("selected");
+    }
+  }
+}
+
+function evaluateMulti() {
+  if (answered) return;
+  if (selectedIndices.length === 0) {
+    alert("Bitte wähle mindestens eine Antwortmöglichkeit aus.");
+    return;
+  }
+  document.getElementById("checkBtn").style.display = "none";
+  evaluateChoice();
+}
+
+function evaluateChoice() {
+  answered = true;
+  const q = currentList[currentIndex];
+  const sortedSelected = [...selectedIndices].sort().join(",");
+  const sortedCorrect = [...q.correct].sort().join(",");
+  const isCorrect = sortedSelected === sortedCorrect;
+
+  q.options.forEach((_, idx) => {
+    const btn = document.getElementById(`opt-${idx}`);
+    btn.disabled = true;
+    const isOptCorrect = q.correct.includes(idx);
+    const isOptSelected = selectedIndices.includes(idx);
+
+    if (isOptCorrect) {
+      btn.classList.add("correct");
+    } else if (isOptSelected && !isOptCorrect) {
+      btn.classList.add("wrong");
+    }
+  });
+
+  const fb = document.getElementById("feedbackBox");
+  if (isCorrect) {
+    score++;
+    fb.className = "feedback-box correct";
+    fb.innerHTML = `<div class="feedback-title">✅ Richtig!</div><div style="white-space: pre-line;">${q.explanation}</div>`;
+  } else {
+    if (!wrongQuestions.some(item => item.id === q.id)) {
+      wrongQuestions.push(q);
+    }
+    fb.className = "feedback-box wrong";
+    fb.innerHTML = `<div class="feedback-title">❌ Falsch</div><div style="white-space: pre-line;">${q.explanation}</div>`;
+  }
+
+  document.getElementById("scoreCounter").textContent = `Punkte: ${score} / ${currentList.length}`;
+  document.getElementById("nextBtn").style.display = "inline-block";
+}
+
+function revealOpenAnswer() {
+  const q = currentList[currentIndex];
+  document.getElementById("revealBtn").style.display = "none";
+  const fb = document.getElementById("feedbackBox");
+  fb.className = "feedback-box neutral";
+  fb.innerHTML = `
+    <div class="feedback-title">💡 Antwort / Lösung aus dem Dokument:</div>
+    <div style="white-space: pre-line; margin-bottom: 10px; font-weight: 600;">${q.modelAnswer}</div>
+    <div style="white-space: pre-line; font-size: 0.92rem; color: #334155;"><strong>Erklärung:</strong> ${q.explanation}</div>
+    <div class="self-eval-btns">
+      <button class="btn-success" onclick="rateOpen(true)">👍 Gewusst</button>
+      <button class="btn-danger" onclick="rateOpen(false)">👎 Nicht gewusst (Wiederholen)</button>
+    </div>
+  `;
+}
+
+function rateOpen(knewIt) {
+  const q = currentList[currentIndex];
+  if (knewIt) {
+    score++;
+  } else {
+    if (!wrongQuestions.some(item => item.id === q.id)) {
+      wrongQuestions.push(q);
+    }
+  }
+  nextQuestion();
+}
+
+function nextQuestion() {
+  currentIndex++;
+  renderQuestion();
+}
+
+function renderSummary() {
+  document.getElementById("progressBar").style.width = "100%";
+  const total = currentList.length;
+  const pct = total > 0 ? Math.round((score / total) * 100) : 0;
+  const wrongCount = total - score;
+
+  const container = document.getElementById("quizContainer");
+  container.innerHTML = `
+    <div class="summary-card">
+      <div class="score-circle">${pct}%</div>
+      <h2>Durchgang abgeschlossen!</h2>
+      <p style="color: var(--muted); margin-top: 6px;">
+        ${pct >= 80 ? "Starke Leistung! Du beherrschst den Fragenkatalog sehr sicher." : "Guter Durchgang! Nutze jetzt den Fehlermodus, um die restlichen Fragen gezielt zu wiederholen."}
+      </p>
+      <div class="summary-stats">
+        <div class="stat-item"><strong style="color: var(--success);">${score}</strong>Richtig</div>
+        <div class="stat-item"><strong style="color: var(--danger);">${wrongCount}</strong>Falsch / Unsicher</div>
+        <div class="stat-item"><strong>${total}</strong>Gesamt</div>
+      </div>
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        ${wrongQuestions.length > 0 ? `<button class="btn-primary" style="background: var(--danger);" onclick="retryWrong()">🔁 Nur falsche Fragen wiederholen (${wrongQuestions.length})</button>` : ""}
+        <button class="btn-primary" onclick="applyFilter()">🔄 Kompletten Durchgang neu starten</button>
+      </div>
+    </div>
+  `;
+}
+
+function retryWrong() {
+  currentList = [...wrongQuestions];
+  initQuiz();
+}
+
+initQuiz();
+</script>
+</body>
+</html>
